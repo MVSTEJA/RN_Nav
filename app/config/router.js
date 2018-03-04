@@ -1,61 +1,72 @@
-import React from 'react';
-import { TabNavigator, StackNavigator } from 'react-navigation';
-import { Icon } from 'react-native-elements';
+import React from "react";
+import { TabNavigator, StackNavigator } from "react-navigation";
+import { Icon } from "react-native-elements";
 
-import Feed from '../screens/Feed';
-import Settings from '../screens/Settings';
-import UserDetail from '../screens/UserDetail';
-import Me from '../screens/Me';
+import Feed from "../screens/Feed";
+import Settings from "../screens/Settings";
+import UserDetail from "../screens/UserDetail";
+import Me from "../screens/Me";
 
 export const FeedStack = StackNavigator({
   Feed: {
     screen: Feed,
     navigationOptions: {
-      title: 'Feed',
-    },
+      title: "Feed"
+    }
   },
   Details: {
     screen: UserDetail,
     navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`,
-    }),
-  },
+      title: `${navigation.state.params.name.first.toUpperCase()} ${navigation.state.params.name.last.toUpperCase()}`
+    })
+  }
 });
 
-export const Tabs = TabNavigator({
-  Feed: {
-    screen: FeedStack,
-    navigationOptions: {
-      tabBarLabel: 'Feed',
-      tabBarIcon: ({ tintColor }) => <Icon name="list" size={35} color={tintColor} />,
+export const Tabs = TabNavigator(
+  {
+    Feed: {
+      screen: FeedStack
     },
+    Me: {
+      screen: Me
+    }
   },
-  Me: {
-    screen: Me,
-    navigationOptions: {
-      tabBarLabel: 'Me',
-      tabBarIcon: ({ tintColor }) => <Icon name="account-circle" size={35} color={tintColor} />
-    },
-  },
-});
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === "Feed") {
+          iconName = "list";
+        } else if (routeName === "Me") {
+          iconName = "account-circle";
+        }
+        return <Icon name={iconName} size={35} color={tintColor} />;
+      }
+    })
+  }
+);
 
 export const SettingsStack = StackNavigator({
   Settings: {
     screen: Settings,
     navigationOptions: {
-      title: 'Settings',
-    },
-  },
+      title: "Settings"
+    }
+  }
 });
 
-export const Root = StackNavigator({
-  Tabs: {
-    screen: Tabs,
+export const Root = StackNavigator(
+  {
+    Tabs: {
+      screen: Tabs
+    },
+    Settings: {
+      screen: SettingsStack
+    }
   },
-  Settings: {
-    screen: SettingsStack,
-  },
-}, {
-  mode: 'modal',
-  headerMode: 'none',
-});
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
