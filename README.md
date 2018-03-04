@@ -1,4 +1,7 @@
 Online Deployed version of App :- https://expo.io/@mvs_teja9/acompleternnav
+
+![myfirstexpprod](https://user-images.githubusercontent.com/15942077/36948129-d0aca410-1ffb-11e8-8147-422cc94cd8b0.png)
+
 (Download expo to your mobile to check above).
 
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
